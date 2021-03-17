@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                 } catch(ex: Exception) {
                     ex.message
                 }
-
+                text_result.text = result
             } else {
                 Toast.makeText(this, "MEW DIGITA OS NUMERO AI VALEW", Toast.LENGTH_SHORT).show()
             }

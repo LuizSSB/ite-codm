@@ -7,4 +7,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextView_Label">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_label</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:background">#FF8888</item>
+    </style>
+
+    <style name="TextView_Result" parent="@style/TextView_Label">
+        <item name="android:textColor">@color/label_result</item>
+        <item name="android:textSize">@dimen/font_size_result</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

@@ -1,4 +1,29 @@
 <resources>
     <string name="app_name">Aula ITE</string>
     <string name="title_main">Tela principal</string>
+    <string name="label_main_number1">Número 1</string>
+    <string name="hint_main_number1">Digite o número 1 mano</string>
+    <string name="label_main_number2">Número 2</string>
+    <string name="hint_main_number2">Digite o número 2 mano</string>
+    <string name="button_main_plus">+</string>
+    <string name="button_main_subtract">-</string>
+    <string name="button_main_multiply">x</string>
+    <string name="button_main_divide">/</string>
+    <string name="label_main_result">Resultado:</string>
+    <string name="label_hello_word">Olá %s!</string>
+
+    <string-array name="options_signup_username">
+        <item>solteirolegal</item>
+        <item>casalcurioso</item>
+        <item>cachorros_da_trevas</item>
+    </string-array>
+
+    <plurals name="quantity_cart_products">
+        <item quantity="few">Você selecionou %d produtos</item>
+        <item quantity="many">Você selecionou %d produtos. Parabéns</item>
+        <item quantity="one">Você selecionou 1 produto</item>
+        <item quantity="two">Você selecionou 2 produtos</item>
+        <item quantity="zero">Você selecionou nenhum produto</item>
+        <item quantity="other">Você selecionou %d produto</item>
+    </plurals>
 </resources>

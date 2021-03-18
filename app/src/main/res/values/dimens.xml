@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_default">15dp</dimen>
+    <dimen name="height_main_button_container">200dp</dimen>
+    <dimen name="font_size_label">17sp</dimen>
+    <dimen name="font_size_result">20sp</dimen>
+    <dimen name="font_size_main_button">100sp</dimen>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="control_main_open_profile">true</bool>
+    <integer name="minimum_message_characters">4723423</integer>
+    <integer-array name="array_integer_general">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+    </integer-array>
+    <fraction name="asd">32</fraction>
+</resources>

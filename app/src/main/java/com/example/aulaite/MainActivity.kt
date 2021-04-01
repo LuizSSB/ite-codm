@@ -25,22 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         "asdas".let { value -> println(value) } // asdas
 
-        findViewById<View>(R.id.form_field_number1).let {
-            it.findViewById<TextView>(R.id.text_form_field).text = getString(R.string.label_main_number1)
-            it.findViewById<EditText>(R.id.edit_form_field).run {
-                hint = getString(R.string.hint_main_number1)
-                inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            }
-        }
-
-        findViewById<View>(R.id.form_field_number2).let {
-            it.findViewById<TextView>(R.id.text_form_field).text = getString(R.string.label_main_number2)
-            it.findViewById<EditText>(R.id.edit_form_field).run {
-                hint = getString(R.string.hint_main_number2)
-                inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            }
-        }
-
         fun doNumberOperation(op: (Float, Float) -> Float) {
 //            val editNumber1 = findViewById<EditText>(R.id.edit_number1)
 //            val number1Str = editNumber1.text.toString()

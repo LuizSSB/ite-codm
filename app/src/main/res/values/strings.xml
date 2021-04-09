@@ -11,6 +11,9 @@
     <string name="button_main_divide">/</string>
     <string name="label_main_result">Resultado:</string>
     <string name="label_hello_word">Olá %s!</string>
+    <string name="button_list_add10">Adicionar 10 elementos</string>
+    <string name="button_list_remove10">Remover 10 elementos</string>
+    <string name="button_returntop">Retornar para o topo</string>
 
     <string-array name="options_signup_username">
         <item>solteirolegal</item>

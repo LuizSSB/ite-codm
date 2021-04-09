@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
 
-
 class FormField : FrameLayout {
     constructor(context: Context) : super(context) {
         setup(context, null)

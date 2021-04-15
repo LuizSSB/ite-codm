@@ -1,5 +1,6 @@
 package com.example.aulaite
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import java.util.*
+import kotlin.concurrent.timer
 
 class ListActivity : AppCompatActivity() {
     private val adapter by lazy {
@@ -22,15 +26,43 @@ class ListActivity : AppCompatActivity() {
 
     private fun handleSelection(item: String, at: Int) {
         Toast.makeText(this, "Selecionou linha $at que exibe $item", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this, DetailActivity::class.java).also { intent ->
+            intent.putExtra("element", item)
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
+        findViewById<SwipeRefreshLayout>(R.id.refresh).let { refresh ->
+            refresh.setOnRefreshListener {
+                timer(
+                    name = "",
+                    daemon = false,
+                    initialDelay = 5000,
+                    period = Long.MAX_VALUE
+                ) {
+                    runOnUiThread {
+                        adapter.items = (0 until 100).map { "Elemento ${Date()} $it" }
+                        refresh.isRefreshing = false
+                    }
+                    cancel()
+                }
+            }
+        }
+
         findViewById<RecyclerView>(R.id.list).let {
             it.adapter = adapter
             it.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+                .also { manager ->
+                    manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                        override fun getSpanSize(position: Int): Int {
+                            return if (position == 0 || position == adapter.itemCount - 1) 2
+                                else 1
+                        }
+                    }
+                }
         }
         findViewById<Button>(R.id.button_add10).setOnClickListener {
             adapter.items = adapter.items +

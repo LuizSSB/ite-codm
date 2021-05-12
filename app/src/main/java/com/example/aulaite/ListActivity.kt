@@ -16,19 +16,39 @@ import java.util.*
 import kotlin.concurrent.timer
 
 class ListActivity : AppCompatActivity() {
+    companion object {
+        private const val REQUEST_USER_EDIT = 42
+    }
+
     private val adapter by lazy {
         SampleAdapter(
-            (0 until 100).map { "Elemento $it" },
+            (0 until 100).map { User(it, "Usuário $it") },
             findViewById(R.id.list),
             this::handleSelection
         )
     }
 
-    private fun handleSelection(item: String, at: Int) {
+    private fun handleSelection(item: User, at: Int) {
         Toast.makeText(this, "Selecionou linha $at que exibe $item", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(this, DetailActivity::class.java).also { intent ->
-            intent.putExtra("element", item)
-        })
+        startActivityForResult(UserActivity.newIntent(this, item), REQUEST_USER_EDIT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            REQUEST_USER_EDIT -> {
+                if (resultCode == RESULT_OK) {
+                    val updatedUser = UserActivity.getIntentuser(data!!)
+                    val newItems = adapter.items.toMutableList()
+                    val updatedUserIndex = newItems.indexOfFirst {
+                        it.id == updatedUser.id
+                    }
+                    newItems[updatedUserIndex] = updatedUser
+                    adapter.items = newItems
+                }
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +64,7 @@ class ListActivity : AppCompatActivity() {
                     period = Long.MAX_VALUE
                 ) {
                     runOnUiThread {
-                        adapter.items = (0 until 100).map { "Elemento ${Date()} $it" }
+                        adapter.items = (0 until 100).map { User(it, "User ${Date()} $it") }
                         refresh.isRefreshing = false
                     }
                     cancel()
@@ -66,7 +86,8 @@ class ListActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.button_add10).setOnClickListener {
             adapter.items = adapter.items +
-                    (adapter.itemCount until (adapter.itemCount + 10)).map { "Elemento $it" }
+                    (adapter.itemCount until (adapter.itemCount + 10))
+                        .map { User(it, "Elemento $it") }
         }
         findViewById<Button>(R.id.button_remove10).setOnClickListener {
             if (adapter.itemCount < 10) {
@@ -80,9 +101,9 @@ class ListActivity : AppCompatActivity() {
 abstract class SampleViewHolder private constructor(rootView: ViewGroup) : RecyclerView.ViewHolder(rootView) {
     class Item(
         rootView: ViewGroup,
-        var onSelect: ((String) -> Unit)? = null
+        var onSelect: ((User) -> Unit)? = null
     ) : SampleViewHolder(rootView) {
-        private lateinit var element: String
+        private lateinit var element: User
 
         init {
             itemView.setOnClickListener {
@@ -90,12 +111,12 @@ abstract class SampleViewHolder private constructor(rootView: ViewGroup) : Recyc
             }
         }
 
-        fun bind(value: String, isOdd: Boolean) {
+        fun bind(value: User, isOdd: Boolean) {
             element = value
             itemView.background = if (isOdd) ContextCompat.getDrawable(itemView.context, R.color.colorAccent)
             else null
-            itemView.findViewById<TextView>(R.id.text_main).text = value
-            itemView.findViewById<TextView>(R.id.text_detail).text = hashCode().toString()
+            itemView.findViewById<TextView>(R.id.text_main).text = value.username
+            itemView.findViewById<TextView>(R.id.text_detail).text = value.id.toString()
         }
     }
 
@@ -127,7 +148,7 @@ abstract class SampleViewHolder private constructor(rootView: ViewGroup) : Recyc
             recyclerView
         )
 
-        fun createItemHolder(parent: ViewGroup, onSelect: ((String) -> Unit)?) = Item(
+        fun createItemHolder(parent: ViewGroup, onSelect: ((User) -> Unit)?) = Item(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_sample, parent, false
             ) as ViewGroup,
@@ -137,9 +158,9 @@ abstract class SampleViewHolder private constructor(rootView: ViewGroup) : Recyc
 }
 
 class SampleAdapter(
-    items: List<String>,
+    items: List<User>,
     private val parentRecyclerView: RecyclerView,
-    private val onSelect: (String, Int) -> Unit
+    private val onSelect: (User, Int) -> Unit
 ) : RecyclerView.Adapter<SampleViewHolder>() {
     var items = items
         set(value) {

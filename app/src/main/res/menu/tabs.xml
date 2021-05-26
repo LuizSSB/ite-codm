@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_text"
+        android:title="Texto"
+        android:icon="@drawable/text" />
+    <item
+        android:id="@+id/tab_login"
+        android:title="Login"
+        android:icon="@drawable/login" />
+    <item
+        android:id="@+id/tab_scroll"
+        android:title="Scroll"
+        android:icon="@drawable/scroll" />
+    <item
+        android:id="@+id/tab_settings"
+        android:title="Ajustes"
+        android:icon="@drawable/settings" />
+</menu>

@@ -4,5 +4,6 @@
     <item
         android:id="@+id/action_reload"
         android:title="Reiniciar"
+        android:icon="@drawable/scroll"
         app:showAsAction="never"/>
 </menu>

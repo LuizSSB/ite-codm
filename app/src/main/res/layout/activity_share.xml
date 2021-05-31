@@ -20,4 +20,19 @@
         android:id="@+id/button_share"
         android:text="Compartilhar" />
 
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_url"
+        android:inputType="textUri"
+        android:text="https://" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_open"
+        android:text="Abrir" />
+
 </LinearLayout>
